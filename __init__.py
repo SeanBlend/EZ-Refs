@@ -11,7 +11,7 @@ width = 1920
 height = 1080
 cls()
 pygame.display.set_caption("EZ Ref - 1.0.0")
-display = pygame.display.set_mode((0, 0), RESIZABLE)
+DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
 Tk().withdraw()
 path = askopenfilename()
 image = pygame.image.load(path)
@@ -21,12 +21,12 @@ imageRect = image.get_rect()
 imageRect.center = (int(width / 2), int(height / 2))
 mouse = pygame.mouse.get_pos()
 black = (0, 0, 0)
-display.fill(black)
+DISPLAY.fill(black)
 while True:
     image = pygame.image.load(path)
     imageRect = image.get_rect()
     imageRect.center = (int(width / 2), int(height / 2))
-    display.blit(image, imageRect)
+    DISPLAY.blit(image, imageRect)
     cls()
     pygame.display.update()
     for event in pygame.event.get():
