@@ -15,10 +15,12 @@ DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
 Tk().withdraw()
 path = askopenfilename()
 image = pygame.image.load(path)
+boxx = width / 2
+boxy = height / 2
 imgWidth = pygame.Surface.get_width(image)
 imgHeight = pygame.Surface.get_height(image)
 imageRect = image.get_rect()
-imageRect.center = (int(width / 2), int(height / 2))
+imageRect.center = (boxx, boxy)
 mouse = pygame.mouse.get_pos()
 black = (0, 0, 0)
 DISPLAY.fill(black)
@@ -38,3 +40,5 @@ while True:
                 if mouse[1] >= imageRect.center[1] + imgHeight / 2 and mouse[1] <= imageRect.center[1] + imgHeight / 2:
                     if held:
                         imageRect.center = (mouse[0], mouse[1])
+                    else:
+                        imageRect.center = (boxx, boxy)
