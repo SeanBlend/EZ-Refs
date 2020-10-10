@@ -23,6 +23,8 @@ imageRect = image.get_rect()
 imageRect.center = (boxx, boxy)
 mouse = pygame.mouse.get_pos()
 black = (0, 0, 0)
+mouseClicked = pygame.mouse.get_pressed()
+mousePos = pygame.mouse.get_pos()
 DISPLAY.fill(black)
 while True:
     image = pygame.image.load(path)
@@ -42,3 +44,16 @@ while True:
                         imageRect.center = (mouse[0], mouse[1])
                     else:
                         imageRect.center = (boxx, boxy)
+        mouseClicked = pygame.mouse.get_pressed()
+        mousePosBefore = pygame.mouse.get_pos()[1]
+        if event.type == mouseClicked[1]:
+            if mouse[1] > mousePosBefore:
+                boxy += 1
+        else:
+            imageRect.center = (boxx, boxy)
+        if event.type == mouseClicked[1]:
+            if mouse[1] < mousePosBefore:
+                boxy -= 1
+            else:
+                imageRect.center = (boxx, boxy)
+            
