@@ -10,7 +10,7 @@ held = True
 width = 1920
 height = 1080
 cls()
-pygame.display.set_caption("EZ Ref - 1.0.0")
+pygame.display.set_caption("EZ Refs - 1.0.0")
 DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
 Tk().withdraw()
 path = askopenfilename()
