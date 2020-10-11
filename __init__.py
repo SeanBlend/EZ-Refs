@@ -48,4 +48,4 @@ while True:
     DISPLAY.blit(image, imageRect)
     cls()
     pygame.display.update()
-    functions.CheckEvent
+    functions.CheckEvent()
