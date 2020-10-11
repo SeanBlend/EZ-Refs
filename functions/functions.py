@@ -17,6 +17,7 @@
 
 import pygame, sys
 from pygame.locals import *
+import tkinter
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -30,3 +31,7 @@ def CheckEvent():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+def TextInput():
+    userInput = int(str(tkinter.Entry()))
+    return userInput
