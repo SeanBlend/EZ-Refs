@@ -28,7 +28,7 @@ height = 1080
 cls()
 pygame.display.set_caption("EZ Refs - 1.0.0")
 DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
-path = functions.getFilePath()
+path = functions.GetFilePath()
 image = pygame.image.load(path)
 boxx = int(input("Boxx: "))
 boxy = int(input("Boxy: "))
@@ -48,19 +48,4 @@ while True:
     DISPLAY.blit(image, imageRect)
     cls()
     pygame.display.update()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        mouseClicked = pygame.mouse.get_pressed()
-        mousePosBefore = pygame.mouse.get_pos()[1]
-        if event.type == mouseClicked[1]:
-            if mouse[1] > mousePosBefore:
-                boxy += 1
-        else:
-            imageRect.center = (boxx, boxy)
-        if event.type == mouseClicked[1]:
-            if mouse[1] < mousePosBefore:
-                boxy -= 1
-            else:
-                imageRect.center = (boxx, boxy)
+    functions.CheckEvent
