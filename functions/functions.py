@@ -15,10 +15,18 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import pygame, sys
+from pygame.locals import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
-def getFilePath():
+def GetFilePath():
     Tk().withdraw()
     path = askopenfilename()
     return path
+
+def CheckEvent():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
