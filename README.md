@@ -1,5 +1,5 @@
 # EZ-Refs
-## Instructions:
+### Instructions:
 1. Run the program.
 2. Open the file.
 
