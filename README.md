@@ -1,7 +1,8 @@
 # EZ-Refs
+## Basics
 ### Instructions:
 1. Run the program.
-2. Open the file.
+2. Open the image file.
 
 You have the image in the window!
 
