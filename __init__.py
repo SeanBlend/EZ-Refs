@@ -22,7 +22,6 @@ from functions import functions
 pygame.init()
 
 cls = lambda: os.system("cls")
-held = True
 
 width = 1920
 height = 1080
@@ -53,13 +52,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if mouse[0] >= imageRect.center[0] - imgWidth / 2 and mouse[0] <= imageRect.center[0] + imgWidth / 2:
-                if mouse[1] >= imageRect.center[1] + imgHeight / 2 and mouse[1] <= imageRect.center[1] + imgHeight / 2:
-                    if held:
-                        imageRect.center = (mouse[0], mouse[1])
-                    else:
-                        imageRect.center = (boxx, boxy)
         mouseClicked = pygame.mouse.get_pressed()
         mousePosBefore = pygame.mouse.get_pos()[1]
         if event.type == mouseClicked[1]:
