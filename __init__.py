@@ -1,7 +1,6 @@
 import pygame, sys, os
 from pygame.locals import *
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+from functions import functions
 pygame.init()
 
 cls = lambda: os.system("cls")
@@ -12,8 +11,7 @@ height = 1080
 cls()
 pygame.display.set_caption("EZ Refs - 1.0.0")
 DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
-Tk().withdraw()
-path = askopenfilename()
+path = functions.getFilePath()
 image = pygame.image.load(path)
 boxx = width / 2
 boxy = height / 2
