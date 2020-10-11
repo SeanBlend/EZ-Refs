@@ -64,4 +64,3 @@ while True:
                 boxy -= 1
             else:
                 imageRect.center = (boxx, boxy)
-            
