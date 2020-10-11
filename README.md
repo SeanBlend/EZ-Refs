@@ -1,5 +1,4 @@
 # EZ-Refs
-## Basics
 ### Instructions:
 1. Run the program.
 2. Open the image file.
