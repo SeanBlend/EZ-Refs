@@ -21,17 +21,19 @@ import tkinter
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
+window = tkinter.Tk()
+
 def GetFilePath():
     Tk().withdraw()
     path = askopenfilename()
     return path
 
-def CheckEvent():
-    for event in pygame.event.get():
+def CheckEvent(events):
+    for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
 def TextInput():
-    userInput = int(str(tkinter.Entry()))
+    userInput = int(str(tkinter.Entry(window, font=('freesansbold', 35))))
     return userInput
