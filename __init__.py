@@ -18,7 +18,7 @@
 
 import pygame, sys, os
 from pygame.locals import *
-from functions import functions
+from functions import functions, Test
 pygame.init()
 
 cls = lambda: os.system("cls")
@@ -30,22 +30,26 @@ pygame.display.set_caption("EZ Refs - 1.0.0")
 DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
 path = functions.GetFilePath()
 image = pygame.image.load(path)
-boxx = int(functions.TextInput())
-boxy = int(functions.TextInput())
+boxx = Test.TextInput("Boxx")
+boxy = Test.TextInput("Boxy")
 imgWidth = pygame.Surface.get_width(image)
 imgHeight = pygame.Surface.get_height(image)
 imageRect = image.get_rect()
-imageRect.center = (boxx, boxy)
-mouse = pygame.mouse.get_pos()
+imageRect.center = (width / 2, height / 2)
 black = (0, 0, 0)
 mouseClicked = pygame.mouse.get_pressed()
 mousePos = pygame.mouse.get_pos()
 DISPLAY.fill(black)
 while True:
+    mousePos = pygame.mouse.get_pos()
+    events = pygame.event.get()
+    boxx.update(events, True)
+    boxy.update(events, True)
+    DISPLAY.blit(boxx.get_surface(), (0, 0))
+    DISPLAY.blit(boxy.get_surface(), (0, 0))
     image = pygame.image.load(path)
     imageRect = image.get_rect()
-    imageRect.center = (boxx, boxy)
+    imageRect.center = (width / 2, height / 2)
     DISPLAY.blit(image, imageRect)
-    cls()
     pygame.display.update()
-    functions.CheckEvent()
+    functions.CheckEvent(events)
