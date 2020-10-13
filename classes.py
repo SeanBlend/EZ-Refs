@@ -282,9 +282,9 @@ class Canvas:
                 if image is not None:
                     if event.button == 4:
                         image[1][0] = image[1][0] + 5
-                        image[1][1] = image[1][1] + 5
+                        image[1][1] = image[1][1] + 4
                     if event.button == 5:
-                        image[1][1] = image[1][1] - 5
+                        image[1][1] = image[1][1] - 4
                         image[1][0] = image[1][0] - 5
 
     def GetImage(self, mousePos):
