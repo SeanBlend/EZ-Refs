@@ -19,27 +19,32 @@
 import pygame
 from classes import *
 from constants import *
+from functions import *
 
 pygame.init()
 pygame.display.set_caption("EZ Refs - 1.0.0")
 
 
 def DrawWindow(window):
-    window.fill(WHITE)
+    window.fill(BLACK)
 
 
 def Main():
-    nameText = TextInput(size=(500, 50), max_string_length=40)
+    #nameText = TextInput(size=(500, 50), max_string_length=40)
+    uploadPic = Button((WIDTH - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
 
     while True:
         DrawWindow(DISPLAY)
+        uploadPic.Draw(DISPLAY)
+        if uploadPic.Clicked():
+            GetFilePath()
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 return
 
-        nameText.update(events, True)
-        nameText.draw(DISPLAY)
+        #nameText.update(events, True)
+        #nameText.draw(DISPLAY)
 
         pygame.display.update()
 
