@@ -24,24 +24,30 @@ from functions import *
 pygame.init()
 pygame.display.set_caption("EZ Refs - 1.0.0")
 
-
-def DrawWindow(window):
+def DrawWindow(window, canvas):
     window.fill(BLACK)
+    canvas.Draw()
 
 
 def Main():
+    width, height = WIDTH, HEIGHT
+    DISPLAY = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    uploadPic = Button((width - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
     #nameText = TextInput(size=(500, 50), max_string_length=40)
-    uploadPic = Button((WIDTH - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
-
+    canvas = Canvas()
     while True:
-        DrawWindow(DISPLAY)
+        uploadPic.ChangeLoc((width - 200 - 10, 10))
+        DrawWindow(DISPLAY, canvas)
         uploadPic.Draw(DISPLAY)
         if uploadPic.Clicked():
-            GetFilePath()
+            canvas.AddImage(pygame.image.load(GetFilePath()))
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 return
+            if event.type == pygame.VIDEORESIZE:
+                width, height = event.w, event.h
+                DISPLAY = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
         #nameText.update(events, True)
         #nameText.draw(DISPLAY)
