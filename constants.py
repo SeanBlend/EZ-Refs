@@ -1,7 +1,7 @@
 import pygame
 
 WIDTH, HEIGHT = 800, 600
-DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
+DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
