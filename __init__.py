@@ -42,6 +42,7 @@ def Main():
         if uploadPic.Clicked():
             canvas.AddImage(pygame.image.load(GetFilePath()))
         events = pygame.event.get()
+        canvas.Update(events)
         for event in events:
             if event.type == pygame.QUIT:
                 return
