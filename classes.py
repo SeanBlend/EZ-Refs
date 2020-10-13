@@ -269,7 +269,27 @@ class Canvas:
     def Draw(self):
         for values in self.images:
             loc, size, image = values
-            DISPLAY.blit(pygame.transform.scale(image, size), loc)
+            image = pygame.transform.scale(image, size)
+            DISPLAY.blit(image, loc)
 
     def AddImage(self, image):
-        self.images.append([(WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2), (image.get_width(), image.get_height()), image])
+        self.images.append([[WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2], [image.get_width(), image.get_height()], image])
+    
+    def Update(self, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                image = self.GetImage(event.pos)
+                if image is not None:
+                    if event.button == 4:
+                        image[1][0] = image[1][0] + 5
+                        image[1][1] = image[1][1] + 5
+                    if event.button == 5:
+                        image[1][1] = image[1][1] - 5
+                        image[1][0] = image[1][0] - 5
+
+    def GetImage(self, mousePos):
+        for image in self.images:
+            rect = image[2].get_rect()
+            if rect.collidepoint(mousePos):
+                return image
+        return None
