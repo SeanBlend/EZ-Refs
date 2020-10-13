@@ -29,7 +29,7 @@ def DrawWindow(window):
 
 
 def Main():
-    nameText = TextInput(size=(500, 50), max_string_length=37)
+    nameText = TextInput(size=(500, 50), max_string_length=40)
 
     while True:
         DrawWindow(DISPLAY)
