@@ -1,6 +1,7 @@
 from typing import Text
 import pygame
 import os
+from constants import *
 
 pygame.font.init()
 
@@ -216,6 +217,10 @@ class Button:
         self.textCol = newTextColor
         self.surf = self.font.render(self.text, 1, self.textCol)
 
+    def ChangeLoc(self, loc):
+        self.loc = loc
+        self.rect = pygame.Rect(*loc, *self.size)
+
     def ChangeBgColor(self, newBgColor):
         """
         Changes the background color of the button
@@ -258,3 +263,13 @@ class Button:
         return self.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]
 
 class Canvas:
+    def __init__(self):
+        self.images = []
+
+    def Draw(self):
+        for values in self.images:
+            loc, size, image = values
+            DISPLAY.blit(pygame.transform.scale(image, size), loc)
+
+    def AddImage(self, image):
+        self.images.append([(WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2), (image.get_width(), image.get_height()), image])
