@@ -16,40 +16,39 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
-import pygame, sys, os
-from pygame.locals import *
-from functions import functions, Test
+import pygame
+from classes import *
+
 pygame.init()
 
-cls = lambda: os.system("cls")
-
-width = 1920
-height = 1080
-cls()
+WIDTH, HEIGHT = 800, 600
+DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("EZ Refs - 1.0.0")
-DISPLAY = pygame.display.set_mode((0, 0), RESIZABLE)
-path = functions.GetFilePath()
-image = pygame.image.load(path)
-boxx = Test.TextInput("Boxx")
-boxy = Test.TextInput("Boxy")
-imgWidth = pygame.Surface.get_width(image)
-imgHeight = pygame.Surface.get_height(image)
-imageRect = image.get_rect()
-imageRect.center = (width / 2, height / 2)
-black = (0, 0, 0)
-mouseClicked = pygame.mouse.get_pressed()
-mousePos = pygame.mouse.get_pos()
-DISPLAY.fill(black)
-while True:
-    mousePos = pygame.mouse.get_pos()
-    events = pygame.event.get()
-    boxx.update(events, True)
-    boxy.update(events, True)
-    DISPLAY.blit(boxx.get_surface(), (0, 0))
-    DISPLAY.blit(boxy.get_surface(), (0, 0))
-    image = pygame.image.load(path)
-    imageRect = image.get_rect()
-    imageRect.center = (width / 2, height / 2)
-    DISPLAY.blit(image, imageRect)
-    pygame.display.update()
-    functions.CheckEvent(events)
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+
+def DrawWindow(window):
+    window.fill(WHITE)
+
+
+def Main():
+    nameText = TextInput(size=(500, 50), max_string_length=40)
+
+    while True:
+        DrawWindow(DISPLAY)
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                return
+
+        nameText.update(events, True)
+        nameText.draw(DISPLAY)
+
+        pygame.display.update()
+
+
+Main()
