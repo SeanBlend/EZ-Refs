@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -39,9 +39,9 @@ def Main():
         uploadPic.ChangeLoc((width - 200 - 10, 10))
         DrawWindow(DISPLAY, canvas)
         uploadPic.Draw(DISPLAY)
-        if uploadPic.Clicked():
-            canvas.AddImage(pygame.image.load(GetFilePath()))
         events = pygame.event.get()
+        if uploadPic.Clicked(events):
+            canvas.AddImage(pygame.image.load(GetFilePath()))
         canvas.Update(events)
         for event in events:
             if event.type == pygame.QUIT:

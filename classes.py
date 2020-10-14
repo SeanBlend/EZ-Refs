@@ -236,7 +236,7 @@ class Button:
         :return: None
         """
         self.borderColor = newBorderColor
-    
+
     def ChangeBorderThickness(self, newBorderThickness):
         """
         Changes the thickness of the border
@@ -255,41 +255,63 @@ class Button:
         pygame.draw.rect(window, self.borderColor, self.rect, self.thickness)
         window.blit(self.surf, (int(self.loc[0] + self.size[0]/2 - self.surf.get_width()/2), int(self.loc[1] + self.size[1]/2 - self.surf.get_height()/2)))
 
-    def Clicked(self):
+    def Clicked(self, events):
         """
         Checks if the button is clicked
         :return: bool value indicating whether or not the button is clicked
         """
-        return self.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                return self.rect.collidepoint(pygame.mouse.get_pos())
 
 class Canvas:
     def __init__(self):
         self.images = []
 
     def Draw(self):
-        for values in self.images:
-            loc, size, image = values
-            image = pygame.transform.scale(image, size)
-            DISPLAY.blit(image, loc)
+        for image in self.images:
+            image.Update(DISPLAY)
 
     def AddImage(self, image):
-        self.images.append([[WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2], [image.get_width(), image.get_height()], image])
-    
+        self.images.append(Image([WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2], [image.get_width(), image.get_height()], image))
+
     def Update(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 image = self.GetImage(event.pos)
                 if image is not None:
                     if event.button == 4:
-                        image[1][0] = image[1][0] + 5
-                        image[1][1] = image[1][1] + 4
+                        image.ScaleUp()
                     if event.button == 5:
-                        image[1][1] = image[1][1] - 4
-                        image[1][0] = image[1][0] - 5
+                        image.ScaleDown()
+
+                if event.button == 1:
+                    pass
 
     def GetImage(self, mousePos):
         for image in self.images:
-            rect = image[2].get_rect()
-            if rect.collidepoint(mousePos):
+            x, y, width, height = *image.loc, *image.size
+            mx, my = mousePos
+            if x <= mx <= x + width and y <= my <= y + height:
                 return image
         return None
+
+class Image:
+    def __init__(self, loc, size, image):
+        self.loc, self.size = loc, size
+        self.center = [self.loc[0] + self.size[0] / 2, self.loc[1] + self.size[1] / 2]
+        self.image = image
+        self.velocity = 1.05
+
+    def Update(self, window):
+        self.loc[0], self.loc[1] = self.center[0] - self.size[0] / 2, self.center[1] - self.size[1] / 2
+        self.Draw(window)
+
+    def Draw(self, window):
+        window.blit(pygame.transform.scale(self.image, (round(self.size[0]), round(self.size[1]))), (round(self.center[0] - self.size[0] / 2), round(self.center[1] - self.size[1] / 2)))
+
+    def ScaleUp(self):
+        self.size[0], self.size[1] = self.size[0] * self.velocity, self.size[1] * self.velocity
+
+    def ScaleDown(self):
+        self.size[0], self.size[1] = self.size[0] / self.velocity, self.size[1] / self.velocity
