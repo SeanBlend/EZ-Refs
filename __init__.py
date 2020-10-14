@@ -22,7 +22,7 @@ from constants import *
 from functions import *
 
 pygame.init()
-pygame.display.set_caption("EZ Refs - 1.0.0")
+pygame.display.set_caption("EZ Refs - by Tools With Code")
 
 def DrawWindow(window, canvas):
     window.fill(BLACK)
