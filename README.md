@@ -10,6 +10,7 @@ ENJOY!
 Pros:
 
 1. Super easy to use.
+2. Able to move and resize pictures
 
 Cons:
 
