@@ -293,15 +293,21 @@ class Canvas:
     def AddImage(self, image):
         self.images.append(Image([WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2], [image.get_width(), image.get_height()], image))
 
-    def Update(self, events):
+    def Update(self, events, direction):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 image = self.GetImage(event.pos)
                 if image is not None:
                     if event.button == 4:
-                        image.ScaleUp()
+                        if not direction:
+                            image.ScaleDown()
+                        else:
+                            image.ScaleUp()
                     if event.button == 5:
-                        image.ScaleDown()
+                        if not direction:
+                            image.ScaleUp()
+                        else:
+                            image.ScaleDown()
 
                     if event.button == 1:
                         self.prevMouseX, self.prevMouseY, self.movingImage = *pygame.mouse.get_pos(), image
@@ -310,7 +316,8 @@ class Canvas:
                 if event.button == 1:
                     if self.prevMouseX is not None and self.prevMouseY is not None and self.movingImage is not None:
                         try:
-                            self.movingImage.Move(self.prevMouseX - event.pos[0], self.prevMouseY - event.pos[1])
+                            self.movingImage.Move(event.pos[0] - self.prevMouseX, event.pos[1] - self.prevMouseY)
+                            self.prevMouseX, self.prevMouseY, self.movingImage = None, None, None
                         except UnboundLocalError:
                             pass
 
@@ -344,5 +351,5 @@ class Image:
         self.size[0], self.size[1] = self.size[0] / self.velocity, self.size[1] / self.velocity
 
     def Move(self, deltaX, deltaY):
-        self.center[0] -= deltaX
-        self.center[1] -= deltaY
+        self.center[0] += deltaX
+        self.center[1] += deltaY
