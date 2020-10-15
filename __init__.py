@@ -16,8 +16,8 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
-import pygame
-from tkinter import messagebox, Tk
+import pygame, tkinter
+from tkinter import messagebox, Tk, Checkbutton, IntVar, W
 from classes import *
 from constants import *
 from functions import *
@@ -32,24 +32,32 @@ def DrawWindow(window, canvas):
 
 def Main():
     Tk().withdraw()
+    scrolling = IntVar()
     width, height = WIDTH, HEIGHT
     DISPLAY = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     uploadPic = Button((width - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
     instructions = Button((width - 200 - 10, 70), (200, 50), pygame.font.SysFont('freesansbold', 40), "Instructions", GRAY, BLACK, 5, BLACK)
+    settings = Button((width - 140 - 10, 130), (140, 50), pygame.font.SysFont('freesansbold', 40), "Settings", GRAY, BLACK, 5, BLACK)
     #nameText = TextInput(size=(500, 50), max_string_length=40)
     canvas = Canvas()
     while True:
         uploadPic.ChangeLoc((width - 200 - 10, 10))
-        instructions.ChangeLoc((width - 200 - 10, 80))
+        instructions.ChangeLoc((width - 200 - 10, 70))
+        settings.ChangeLoc((width - 140 - 10, 130))
         DrawWindow(DISPLAY, canvas)
         uploadPic.Draw(DISPLAY)
         instructions.Draw(DISPLAY)
+        settings.Draw(DISPLAY)
         events = pygame.event.get()
         if uploadPic.Clicked(events):
             canvas.AddImage(pygame.image.load(GetFilePath()))
         if instructions.Clicked(events):
             messagebox.showinfo("Instructions", "- Scroll on an image to scale the image\n- Click and drag to move the image")
-        canvas.Update(events)
+        if settings.Clicked(events):
+            window = Tk()
+            Checkbutton(window, text="Invert Scrolling", variable=scrolling).grid(row=0, sticky=W)
+            tkinter.mainloop()
+        canvas.Update(events, scrolling)
         for event in events:
             if event.type == pygame.QUIT:
                 return
