@@ -17,6 +17,7 @@
 
 
 import pygame
+from tkinter import messagebox, Tk
 from classes import *
 from constants import *
 from functions import *
@@ -30,18 +31,24 @@ def DrawWindow(window, canvas):
 
 
 def Main():
+    Tk().withdraw()
     width, height = WIDTH, HEIGHT
     DISPLAY = pygame.display.set_mode((width, height), pygame.RESIZABLE)
     uploadPic = Button((width - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
+    instructions = Button((width - 200 - 10, 70), (200, 50), pygame.font.SysFont('freesansbold', 40), "Instructions", GRAY, BLACK, 5, BLACK)
     #nameText = TextInput(size=(500, 50), max_string_length=40)
     canvas = Canvas()
     while True:
         uploadPic.ChangeLoc((width - 200 - 10, 10))
+        instructions.ChangeLoc((width - 200 - 10, 80))
         DrawWindow(DISPLAY, canvas)
         uploadPic.Draw(DISPLAY)
+        instructions.Draw(DISPLAY)
         events = pygame.event.get()
         if uploadPic.Clicked(events):
             canvas.AddImage(pygame.image.load(GetFilePath()))
+        if instructions.Clicked(events):
+            messagebox.showinfo("Instructions", "- Scroll on an image to scale the image\n- Click and drag to move the image")
         canvas.Update(events)
         for event in events:
             if event.type == pygame.QUIT:
