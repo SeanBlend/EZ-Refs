@@ -284,6 +284,7 @@ class Button:
 class Canvas:
     def __init__(self):
         self.images = []
+        self.prevMouseX, self.prevMouseY, self.movingImage = None, None, None
 
     def Draw(self):
         for image in self.images:
@@ -302,8 +303,16 @@ class Canvas:
                     if event.button == 5:
                         image.ScaleDown()
 
+                    if event.button == 1:
+                        self.prevMouseX, self.prevMouseY, self.movingImage = *pygame.mouse.get_pos(), image
+
+            if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    pass
+                    if self.prevMouseX is not None and self.prevMouseY is not None and self.movingImage is not None:
+                        try:
+                            self.movingImage.Move(self.prevMouseX - event.pos[0], self.prevMouseY - event.pos[1])
+                        except UnboundLocalError:
+                            pass
 
     def GetImage(self, mousePos):
         for image in self.images:
@@ -312,6 +321,7 @@ class Canvas:
             if x <= mx <= x + width and y <= my <= y + height:
                 return image
         return None
+
 
 class Image:
     def __init__(self, loc, size, image):
@@ -332,3 +342,7 @@ class Image:
 
     def ScaleDown(self):
         self.size[0], self.size[1] = self.size[0] / self.velocity, self.size[1] / self.velocity
+
+    def Move(self, deltaX, deltaY):
+        self.center[0] -= deltaX
+        self.center[1] -= deltaY
