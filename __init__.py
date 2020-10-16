@@ -38,7 +38,6 @@ def Main():
     uploadPic = Button((width - 200 - 10, 10), (200, 50), pygame.font.SysFont('freesansbold', 40), "Upload Image", GRAY, BLACK, 5, BLACK)
     instructions = Button((width - 200 - 10, 70), (200, 50), pygame.font.SysFont('freesansbold', 40), "Instructions", GRAY, BLACK, 5, BLACK)
     settings = Button((width - 140 - 10, 130), (140, 50), pygame.font.SysFont('freesansbold', 40), "Settings", GRAY, BLACK, 5, BLACK)
-    #nameText = TextInput(size=(500, 50), max_string_length=40)
     canvas = Canvas()
     while True:
         uploadPic.ChangeLoc((width - 200 - 10, 10))
@@ -64,10 +63,6 @@ def Main():
             if event.type == pygame.VIDEORESIZE:
                 width, height = event.w, event.h
                 DISPLAY = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-
-        #nameText.update(events, True)
-        #nameText.draw(DISPLAY)
-
         pygame.display.update()
 
 
