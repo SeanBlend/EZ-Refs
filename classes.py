@@ -7,7 +7,7 @@
 #
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
@@ -294,20 +294,28 @@ class Canvas:
         self.images.append(Image([WIDTH / 2 - image.get_width() / 2, HEIGHT / 2 - image.get_height() / 2], [image.get_width(), image.get_height()], image))
 
     def Update(self, events, direction):
+        keys = pygame.key.get_pressed()
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 image = self.GetImage(event.pos)
                 if image is not None:
-                    if event.button == 4:
-                        if not direction:
-                            image.ScaleDown()
-                        else:
-                            image.ScaleUp()
-                    if event.button == 5:
-                        if not direction:
-                            image.ScaleUp()
-                        else:
-                            image.ScaleDown()
+                    if keys[pygame.KMOD_CTRL]: # check for control being pressed (not working)
+                        if event.button == 4:
+                            if not direction:
+                                image.ScaleDown()
+                            else:
+                                image.ScaleUp()
+                        if event.button == 5:
+                            if not direction:
+                                image.ScaleUp()
+                            else:
+                                image.ScaleDown()
+
+                    else:
+                        if event.button == 4:
+                            image.RotateCW()
+                        if event.button == 5:
+                            image.RotateCCW()
 
                     if event.button == 1:
                         self.prevMouseX, self.prevMouseY, self.movingImage = *pygame.mouse.get_pos(), image
@@ -335,6 +343,7 @@ class Image:
         self.loc, self.size = loc, size
         self.center = [self.loc[0] + self.size[0] / 2, self.loc[1] + self.size[1] / 2]
         self.image = image
+        self.rot = 0
         self.velocity = 1.05
 
     def Update(self, window):
@@ -342,7 +351,13 @@ class Image:
         self.Draw(window)
 
     def Draw(self, window):
-        window.blit(pygame.transform.scale(self.image, (round(self.size[0]), round(self.size[1]))), (round(self.center[0] - self.size[0] / 2), round(self.center[1] - self.size[1] / 2)))
+        window.blit(pygame.transform.rotate(pygame.transform.scale(self.image, (round(self.size[0]), round(self.size[1]))), self.rot), (round(self.center[0] - self.size[0] / 2), round(self.center[1] - self.size[1] / 2)))
+
+    def RotateCW(self):
+        self.rot += 5
+
+    def RotateCCW(self):
+        self.rot -= 5
 
     def ScaleUp(self):
         self.size[0], self.size[1] = self.size[0] * self.velocity, self.size[1] * self.velocity

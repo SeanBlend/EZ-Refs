@@ -29,7 +29,6 @@ def DrawWindow(window, canvas):
     window.fill(BLACK)
     canvas.Draw()
 
-
 def Main():
     Tk().withdraw()
     scrolling = IntVar()
