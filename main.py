@@ -51,10 +51,10 @@ def Main():
             canvas.AddImage(pygame.image.load(GetFilePath()))
         if instructions.Clicked(events):
             messagebox.showinfo("Instructions", "- Scroll on an image to scale the image\n- Click and drag to move the image")
-        if settings.Clicked(events):
-            window = Tk()
-            Checkbutton(window, text="Invert Scrolling", variable=scrolling).grid(row=0, sticky=W)
-            tkinter.mainloop()
+        #if settings.Clicked(events):
+        #    window = Tk()
+        #    Checkbutton(window, text="Invert Scrolling", variable=scrolling).grid(row=0, sticky=W)
+        #    tkinter.mainloop()
         canvas.Update(events, scrolling)
         for event in events:
             if event.type == pygame.QUIT:
