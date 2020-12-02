@@ -299,17 +299,11 @@ class Canvas:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 image = self.GetImage(event.pos)
                 if image is not None:
-                    if keys[pygame.KMOD_CTRL]: # check for control being pressed (not working)
+                    if keys[pygame.K_RCTRL] or keys[pygame.K_LCTRL]:
                         if event.button == 4:
-                            if not direction:
-                                image.ScaleDown()
-                            else:
-                                image.ScaleUp()
+                            image.ScaleUp()
                         if event.button == 5:
-                            if not direction:
-                                image.ScaleUp()
-                            else:
-                                image.ScaleDown()
+                            image.ScaleDown()
 
                     else:
                         if event.button == 4:
@@ -319,6 +313,7 @@ class Canvas:
 
                     if event.button == 1:
                         self.prevMouseX, self.prevMouseY, self.movingImage = *pygame.mouse.get_pos(), image
+                
 
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
@@ -331,12 +326,12 @@ class Canvas:
 
     def GetImage(self, mousePos):
         for image in self.images:
-            x, y, width, height = *image.loc, *image.size
+            x, y = image.loc
+            width, height = image.size
             mx, my = mousePos
             if x <= mx <= x + width and y <= my <= y + height:
                 return image
         return None
-
 
 class Image:
     def __init__(self, loc, size, image):
