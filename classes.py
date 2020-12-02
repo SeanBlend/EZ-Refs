@@ -346,7 +346,7 @@ class Image:
         self.Draw(window)
 
     def Draw(self, window):
-        window.blit(pygame.transform.rotate(pygame.transform.scale(self.image, (round(self.size[0]), round(self.size[1]))), self.rot), (round(self.center[0] - self.size[0] / 2), round(self.center[1] - self.size[1] / 2)))
+        window.blit(self.RotCenter(), (round(self.center[0] - self.size[0] / 2), round(self.center[1] - self.size[1] / 2)))
 
     def RotateCW(self):
         self.rot += 5
@@ -359,6 +359,12 @@ class Image:
 
     def ScaleDown(self):
         self.size[0], self.size[1] = self.size[0] / self.velocity, self.size[1] / self.velocity
+
+    def RotCenter(self):
+        loc = self.image.get_rect().center
+        rotImg = pygame.transform.rotate(self.image, self.rot)
+        rotImg.get_rect().center = loc
+        return rotImg
 
     def Move(self, deltaX, deltaY):
         self.center[0] += deltaX
